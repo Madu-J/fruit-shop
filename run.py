@@ -13,24 +13,24 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fruit_shop')
 
 
-def get_supply_data():
+def get_delivery_data():
     """
-    Get supply figure input from user
+    Get delivery figure input from user
     """
     while True:
-        print("Get supply data from  worksheet.")
+        print("Get delivery data from  worksheet.")
         print("Data should be seven numbers separated by commas.")
         print("Example: 25,30,30,15,9,17,20\n")
 
         data_str = input("Enter your data here: ")
 
-        supply_data = data_str.split(",")
+        delivery_data = data_str.split(",")
 
-        if validate_data(supply_data):
+        if validate_data(delivery_data):
             print("Data is valid!")
             break
 
-    return supply_data
+    return delivery_data
 
 
 def validate_data(values):
@@ -53,4 +53,16 @@ def validate_data(values):
     return True
 
 
-data = get_supply_data()
+def update_delivery_worksheet(data):
+    """
+    Uppdate delivery worksheet
+    """
+    print("Updating delivery worksheet...\n")
+    delivery_worksheet = SHEET.worksheet("delivery")
+    delivery_worksheet.append_row(data)
+    print("Delivery worksheet updated successfully\n")
+
+
+data = get_delivery_data()
+delivery_data = [int(num) for num in data]
+update_delivery_worksheet(delivery_data)
