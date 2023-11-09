@@ -17,14 +17,20 @@ def get_supply_data():
     """
     Get supply figure input from user
     """
-    print("Get dispatch data from  worksheet.")
-    print("Data should be seven numbers separated by commas.")
-    print("Example: 25,30,30,15,9,17,20\n")
+    while True:
+        print("Get supply data from  worksheet.")
+        print("Data should be seven numbers separated by commas.")
+        print("Example: 25,30,30,15,9,17,20\n")
 
-    data_str = input("Enter your data here: ")
+        data_str = input("Enter your data here: ")
 
-    supply_data = data_str.split(",")
-    validate_data(supply_data)
+        supply_data = data_str.split(",")
+
+        if validate_data(supply_data):
+            print("Data is valid!")
+            break
+
+    return supply_data
 
 
 def validate_data(values):
@@ -42,6 +48,9 @@ def validate_data(values):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
 
 
-get_supply_data()
+data = get_supply_data()
