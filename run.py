@@ -12,8 +12,17 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fruit_shop')
 
-supply = SHEET.worksheet('supply')
 
-data = supply.get_all_values()
+def get_supply_data():
+    """
+    Get supply figure input from user
+    """
+    print("Get dispatch data from  worksheet.")
+    print("Data should be seven numbers separated by commas.")
+    print("Example: 25,30,30,15,9,17,20\n")
 
-print(data)
+    data_str = input("Enter your data here: ")
+    print(f"The data provided is {data_str}")
+
+
+get_supply_data()
