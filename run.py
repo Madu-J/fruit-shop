@@ -22,7 +22,24 @@ def get_supply_data():
     print("Example: 25,30,30,15,9,17,20\n")
 
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+
+    supply_data = data_str.split(",")
+    validate_data(supply_data)
+
+
+def validate_data(values):
+    """
+    Inside the try, converts all string values into integers.
+    Raises ValueError if strings can not be converted into int,
+    or if there aren't exactly 7 values.
+    """
+    try:
+        if len(values) != 7:
+            raise ValueError(
+                f"Exactly 7 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
 
 
 get_supply_data()
