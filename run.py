@@ -64,6 +64,16 @@ def update_delivery_worksheet(data):
     print("Delivery worksheet updated successfully\n")
 
 
+def update_leftover_worksheet(data):
+    """
+    Uppdate leftover worksheet
+    """
+    print("Updating leftover worksheet...\n")
+    leftover_worksheet = SHEET.worksheet("leftover")
+    leftover_worksheet.append_row(data)
+    print("Leftover worksheet updated successfully\n")
+
+
 def calculate_leftover_data(delivery_row):
     """
     Collecting figure of leftover  from the dispatched items in the
@@ -89,7 +99,7 @@ def main():
     delivery_data = [int(num) for num in data]
     update_delivery_worksheet(delivery_data)
     new_leftover_data = calculate_leftover_data(delivery_data)
-    print(new_leftover_data)
+    update_leftover_worksheet(new_leftover_data)
 
 
 print("Welcome to Fruit Shop Net")
