@@ -21,7 +21,7 @@ def get_delivery_data():
     while True:
         print("Get delivery data from  worksheet.")
         print("Data should be seven numbers separated by commas.")
-        print("Example: 25,30,30,15,9,17,20\n")
+        print("Example: 25,30,30,15,11,17,20\n")
 
         data_str = input("Enter your data here: ")
 
@@ -72,7 +72,13 @@ def calculate_leftover_data(delivery_row):
     print("Calculating leftover data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
-    print(stock_row)
+
+    leftover_data = []
+    for stock, delivery in zip(stock_row, delivery_row):
+        leftover = int(stock) - delivery
+        leftover_data.append(leftover)
+
+    return leftover_data
 
 
 def main():
@@ -82,7 +88,8 @@ def main():
     data = get_delivery_data()
     delivery_data = [int(num) for num in data]
     update_delivery_worksheet(delivery_data)
-    calculate_leftover_data(delivery_data)
+    new_leftover_data = calculate_leftover_data(delivery_data)
+    print(new_leftover_data)
 
 
 print("Welcome to Fruit Shop Net")
