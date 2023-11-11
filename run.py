@@ -82,6 +82,21 @@ def calculate_leftover_data(delivery_row):
     return leftover_data
 
 
+def get_last_3_entries_delivery():
+    """
+    Collects columns of data from delivery worksheet, collecting the last 3
+    entries for each fruit and returns the data as a list of lists.
+    """
+    delivery = SHEET.worksheet("delivery")
+
+    columns = []
+    for ind in range(1, 8):
+        column = delivery.col_values(ind)
+        columns.append(column[-3:])
+
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -94,4 +109,6 @@ def main():
 
 
 print("Welcome to Fruit Shop Net")
-main()
+# main()
+
+delivery_columns = get_last_3_entries_delivery()
