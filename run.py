@@ -54,24 +54,15 @@ def validate_data(values):
     return True
 
 
-def update_delivery_worksheet(data):
+def update_worksheet(data, worksheet):
     """
-    Uppdate delivery worksheet
+    Receive list of integers to be inserted into a worksheet.
+    Update relevant worksheet with the list provided.
     """
-    print("Updating delivery worksheet...\n")
-    delivery_worksheet = SHEET.worksheet("delivery")
-    delivery_worksheet.append_row(data)
-    print("Delivery worksheet updated successfully\n")
-
-
-def update_leftover_worksheet(data):
-    """
-    Uppdate leftover worksheet
-    """
-    print("Updating leftover worksheet...\n")
-    leftover_worksheet = SHEET.worksheet("leftover")
-    leftover_worksheet.append_row(data)
-    print("Leftover worksheet updated successfully\n")
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet update successfully\n")
 
 
 def calculate_leftover_data(delivery_row):
@@ -97,9 +88,9 @@ def main():
     """
     data = get_delivery_data()
     delivery_data = [int(num) for num in data]
-    update_delivery_worksheet(delivery_data)
+    update_worksheet(delivery_data, "delivery")
     new_leftover_data = calculate_leftover_data(delivery_data)
-    update_leftover_worksheet(new_leftover_data)
+    update_worksheet(new_leftover_data, "leftover")
 
 
 print("Welcome to Fruit Shop Net")
