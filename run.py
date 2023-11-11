@@ -84,7 +84,7 @@ def calculate_leftover_data(delivery_row):
 
 def get_last_3_entries_delivery():
     """
-    Collects columns of data from delivery worksheet, collecting the last 3
+    Get columns of data from delivery worksheet, collecting the last 3
     entries for each fruit and returns the data as a list of lists.
     """
     delivery = SHEET.worksheet("delivery")
@@ -97,6 +97,22 @@ def get_last_3_entries_delivery():
     return columns
 
 
+def calculate_stock_data(data):
+    """
+    Calculate average stock adding 10%
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+  
+    return new_stock_data
+
+
 def main():
     """
     Run all program functions
@@ -106,9 +122,10 @@ def main():
     update_worksheet(delivery_data, "delivery")
     new_leftover_data = calculate_leftover_data(delivery_data)
     update_worksheet(new_leftover_data, "leftover")
+    delivery_columns = get_last_3_entries_delivery()
+    stock_data = calculate_stock_data(delivery_columns)
+    update_worksheet(stock_data, "stock")
 
 
 print("Welcome to Fruit Shop Net")
-# main()
-
-delivery_columns = get_last_3_entries_delivery()
+main()
